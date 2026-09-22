@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing dependencies..."
+      - npm install
+      - pip install --upgrade awscli
+  pre_build:
+    commands:
+      - echo "Setting up secure environment..."
+      - chmod +x ./scripts/load-secrets.sh
+      - . ./scripts/load-secrets.sh
+  build:
+    commands:
+      - echo "Running tests..."
+      - npm test
+      - echo "Building the application..."
+      - npm run build
+  post_build:
+    commands:
+      - echo "Post-build phase - cleaning up..."
+      # Secure cleanup steps go here
+
+artifacts:
+  files:
+    - app.js
+    - package.json
+    - node_modules/**/*
+    - appspec.yml
+    - public/index.html
+  discard-paths: no
+
+cache:
+  paths:
+    - 'node_modules/**/*'
