@@ -1,0 +1,15 @@
+{
+    "name": "secure-app",
+    "version": "1.0.0",
+    "description": "Demo app for secure build process",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js",
+      "test": "echo \"Error: no test specified\" && exit 0",
+      "build": "echo \"Nothing to build\""
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "aws-sdk": "^2.1040.0"
+    }
+}
