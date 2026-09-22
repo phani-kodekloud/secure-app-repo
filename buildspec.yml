@@ -10,6 +10,10 @@ phases:
       - pip install --upgrade awscli
   pre_build:
     commands:
+      - echo "Running security scans"
+      - pip install detect-secrets
+      - detect-secrets scan > secrets-scan.txt
+      - if grep -q 'results' secrets-scan.txt; then echo "Potential secrets found in code"; exit 1; fi
       - echo "Setting up secure environment..."
       - chmod +x ./scripts/load-secrets.sh
       - . ./scripts/load-secrets.sh
